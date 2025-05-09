@@ -1,0 +1,29 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create table subscriptions" author="zkalanderyan">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="subscriptions"/>
+            </not>
+        </preConditions>
+        <createTable tableName="subscriptions">
+            <column name="subscription_id" type="INTEGER" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="subscription_name" type="VARCHAR(255)" autoIncrement="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="INTEGER" remarks="0 - выключена, 1 - включена" autoIncrement="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INTEGER" remarks="Идентификатор в бд" autoIncrement="false">
+                <constraints nullable="false" foreignKeyName="fk_users"
+                             referencedTableName="users" referencedColumnNames="user_id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
